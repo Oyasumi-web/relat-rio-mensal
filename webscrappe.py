@@ -5,6 +5,24 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 import time
+from pathlib import Path
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.add_argument("--headless=new")
+options.add_argument("--window-size=1920,1080")
+options.add_argument("--disable-gpu")
+
+pasta_downloads = str(Path.home() / "Downloads")
+prefs = {
+    "download.default_directory": pasta_downloads,
+    "download.prompt_for_download": False,
+    "directory_upgrade": True,
+    "safebrowsing.enabled": True,
+}
+options.add_experimental_option("prefs", prefs)
+
+driver = webdriver.Chrome(options=options)
 
 load_dotenv("key.env")
 
